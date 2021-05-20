@@ -326,7 +326,7 @@ fn show_mino(mino: &Mino) {
     }
 }
 
-fn show_dup_mino(grps: &Vec<Vec<Mino>>) {
+fn show_grp_mino(grps: &Vec<Vec<Mino>>) {
     let mut sum = 0;
 
     for i in 1..grps.len() {
@@ -353,11 +353,11 @@ fn main() {
         grps[mino.ps.len()].push(mino.clone());
     }
 
-    show_dup_mino(&grps);
+    show_grp_mino(&grps);
 
     let dgrps = duplicate(&grps);
 
-    show_dup_mino(&dgrps);
+    show_grp_mino(&dgrps);
 
     //println!("{:?}", xs);
 }
