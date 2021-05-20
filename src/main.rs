@@ -1,6 +1,13 @@
 use std::collections::HashSet;
 
 // https://qiita.com/ref3000/items/af18a4532123c22a19a4
+/*
+    将来的には Numberlink も解きたい．(algorithms-05-00176.pdf) (IPSJ-DAS2014040%20.pdf or https://qiita.com/jkr_2255/items/bb7cb2eee35e285a17a2 SAT でも解けるらしい)
+    Rust で SAT: https://docs.rs/sat/0.1.0/sat/
+    http://pzv.jp/p.html?numlin/12/12/13h9g3j4i2j5t5l87g6l6j2g7jbgbjal8g1czg9uahcp4
+    数字は数字．連続するときはそのまま，間が空くときは g から始まる．zg で z+g (間が空きすぎるときは二文字以上で表現)
+    おそらく 1 ~ f までは数字，それ以降は間隙として識別している
+*/
 type State = Vec<Vec<bool>>;
 type Field = Vec<Vec<u32>>;
 
