@@ -1,52 +1,4 @@
 use std::collections::HashSet;
-use std::option::Option;
-use std::hash::{SipHasher, Hash, Hasher};
-
-struct UniqueIterator<I> {
-    iter: I,
-    seen_items: HashSet<u64>,
-}
-
-fn hash_item<T>(item: &T) -> u64
-    where T: Hash
-{
-    let mut hasher = SipHasher::new();
-    item.hash(&mut hasher);
-    hasher.finish()
-}
-
-impl<I> Iterator for UniqueIterator<I>
-    where I: Iterator,
-          I::Item: Hash + Sized
-{
-    type Item = I::Item;
-
-    fn next(&mut self) -> Option<Self::Item> {
-        let seen_items = &mut self.seen_items;
-        match self.iter
-            .find(|x: &Self::Item| -> bool { !seen_items.contains(&hash_item(&x)) }) {
-            None => None,
-            Some(item) => {
-                seen_items.insert(hash_item(&item));
-                Some(item)
-            }
-        }
-    }
-}
-
-trait UniqueIteratorAdapter: Iterator {
-    fn unique(self) -> UniqueIterator<Self>
-        where Self: Sized,
-              Self::Item: Hash + Sized
-    {
-        UniqueIterator {
-            iter: self,
-            seen_items: HashSet::new(),
-        }
-    }
-}
-
-impl<I> UniqueIteratorAdapter for I where I: Iterator {}
 
 // https://qiita.com/ref3000/items/af18a4532123c22a19a4
 type State = Vec<Vec<bool>>;
@@ -342,7 +294,7 @@ fn tile(state: Vec<bool>, flds: Vec<Field>) {
 }
 
 fn main() {
-    let n = 10;
+    let n = 5;
     let xs = enum_polyomino(n);
     let mut grps: Vec<Vec<Mino>> = vec![Vec::<Mino>::new(); n+1];
 
